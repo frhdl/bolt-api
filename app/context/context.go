@@ -16,7 +16,8 @@ const (
 // Context is a struct that contains a global fields for context.
 type Context struct {
 	UUID         string `json:"uuid"`
-	LoggedAuthID int
+	LoggedUserID int
+	IsAdmin      bool
 	HTTPPrefix   string
 	Logger       *log.Entry
 }
@@ -47,6 +48,9 @@ const (
 
 	// ResultStateUnauthorized state is when the request is not authorized.
 	ResultStateUnauthorized ResultState = 4
+
+	// ResultStateResourceAlreadyExist state is when the resource already exist.
+	ResultStateResourceAlreadyExist = 5
 )
 
 // ResultError represent a base for applications errors.
