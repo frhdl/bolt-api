@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    restart: always
+    image: kiasaki/alpine-postgres:9.5
+    environment:
+      - POSTGRES_USER:'postgres'
+      - POSTGRES_PASSWORD:'abcd1234'
+      - POSTGRES_DB:'postgres'
+    ports:
+      - '5431:5432'
+    networks:
+      - main
+  redis:
+    restart: always
+    image: "redis:alpine"
+
+    command: redis-server --requirepass abcd1234
+
+    ports:
+     - "6379:6379"
+
+    volumes:
+     - $PWD/redis-data:/var/lib/redis
+
+    environment:
+     - REDIS_REPLICATION_MODE=master
+networks:
+  main:
+    driver: bridge
