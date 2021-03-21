@@ -7,6 +7,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const schema = "schema.sql"
+
 var rootCmd = &cobra.Command{
 	Short: "Bolt API Ecosystem",
 }
