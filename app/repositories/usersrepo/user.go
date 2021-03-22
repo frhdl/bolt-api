@@ -28,7 +28,7 @@ func (r *UserRepository) Create(ctx *context.Context, user *domains.User) contex
 		INSERT INTO users(name, email, client_id, client_secret, create_at, update_at)
 		VALUES ('%v', '%v', '%v', '%v', NOW(), NOW())`, user.Name, user.Email, user.ClientID, user.ClientSecret)
 
-	_, err := r.Db.QueryRow(query)
+	_, err := r.Db.Exec(query)
 	if err != nil {
 		ctx.Logger.WithField("Error", err.Error()).Errorf("Error to insert user - Query: %v", query)
 		return ctx.ResultError(1, err.Error())
@@ -37,9 +37,19 @@ func (r *UserRepository) Create(ctx *context.Context, user *domains.User) contex
 	return ctx.ResultSuccess()
 }
 
-// FindUser find a user in database.
+// Find find a user in database.
 func (r *UserRepository) Find(ctx *context.Context, user *domains.User) (context.Result, string, string) {
-	query := fmt.Sprintf(`SELECT email, client_id FROM users WHERE email = '%v' or client_id = '%v'`, user.Email, user.ClientID)
+	query := fmt.Sprintf(`
+	SELECT 
+		email, client_id 
+	FROM 
+		users 
+	WHERE 
+		email = '%v' 
+	OR 
+		client_id = '%v'
+	`, user.Email, user.ClientID)
+
 	rows, err := r.Db.QueryRow(query)
 	if err != nil {
 		ctx.Logger.WithField("Error", err.Error()).Errorf("Error to get user - Email: %v, ClientID: %v", user.Email, user.ClientID)

@@ -1,6 +1,6 @@
 package domains
 
-// User represent a user in application.
+// User represent a user in the application.
 type User struct {
 	ID           int    `json:"id"`
 	Name         string `json:"name"`
