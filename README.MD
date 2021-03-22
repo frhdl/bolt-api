@@ -9,7 +9,7 @@
 
  ## Prerequisites
 - [Docker Desktop](https://hub.docker.com/?overlay=onboarding) 
-- [Golang 1.15.8](https://golang.org/)
+- [Golang 1.16](https://golang.org/)
 
 ## Configure your local environment
 (only for the fist time)
@@ -37,7 +37,7 @@ docker-compose up
 |                |                       |
 |                |                       |
 
-**2. Execute the application in 'web mode' and wait for 1 minute - this will create database structure.**
+**2. Execute the application in 'web mode' and wait - this will create database structure.**
 ```shell
 go run main.go web
 ```
