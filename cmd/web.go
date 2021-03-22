@@ -10,10 +10,14 @@ import (
 	"github.com/getchipman/bolt-api/app/context"
 	"github.com/getchipman/bolt-api/app/core/domains"
 	"github.com/getchipman/bolt-api/app/core/services/authsrv"
+	"github.com/getchipman/bolt-api/app/core/services/projectssrv"
+	"github.com/getchipman/bolt-api/app/core/services/taskssrv"
 	"github.com/getchipman/bolt-api/app/core/services/userssrv"
 	"github.com/getchipman/bolt-api/app/db"
 	"github.com/getchipman/bolt-api/app/handlers"
 	"github.com/getchipman/bolt-api/app/repositories/authrepo"
+	"github.com/getchipman/bolt-api/app/repositories/projectsrepo"
+	"github.com/getchipman/bolt-api/app/repositories/tasksrepo"
 	"github.com/getchipman/bolt-api/app/repositories/usersrepo"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/redis"
@@ -67,17 +71,37 @@ var apiCMD = &cobra.Command{
 		usersrepo := usersrepo.New(db, cache)
 		userssrv := userssrv.New(usersrepo)
 
+		// --> New Project repo and service.
+		projectsrepo := projectsrepo.New(db, cache)
+		projectssrv := projectssrv.New(projectsrepo)
+
+		// --> New Task repo and service.
+		tasksrepo := tasksrepo.New(db, cache)
+		taskssrv := taskssrv.New(tasksrepo)
+
 		// --> Handler
-		hdl := handlers.New(authsrv, userssrv)
+		hdl := handlers.New(authsrv, userssrv, projectssrv, taskssrv)
 
 		router := gin.New()
 
 		router.Use(sessions.Sessions(domains.DefaultSessionID, store))
 		router.Use(handlers.GlobalMiddleware())
 
-		// Login and Registration
+		// --> Login and Registration
 		router.POST("api/v1/user", handlers.HandlerAPI(false, hdl.Create))
 		router.POST("api/v1/auth/login", handlers.HandlerAPI(false, hdl.LoginAuth))
+
+		// --> Projects
+		router.POST("api/v1/project", handlers.HandlerAPI(true, hdl.CreateProject))
+		router.GET("api/v1/project", handlers.HandlerAPI(true, hdl.GetAllProjects))
+		router.PUT("api/v1/project", handlers.HandlerAPI(true, hdl.UpdateProject))
+		router.DELETE("api/v1/project/:projectID", handlers.HandlerAPI(true, hdl.DeleteProject))
+
+		// --> Tasks
+		router.POST("api/v1/task", handlers.HandlerAPI(true, hdl.CreateTask))
+		router.GET("api/v1/task", handlers.HandlerAPI(true, hdl.GetAllTasks))
+		router.PUT("api/v1/task", handlers.HandlerAPI(true, hdl.UpdateTask))
+		router.DELETE("api/v1/task/:taskID", handlers.HandlerAPI(true, hdl.DeleteTask))
 
 		port := common.GetEnv("PORT", "9000")
 		s := &http.Server{
