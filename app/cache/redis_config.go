@@ -1,6 +1,6 @@
 package cache
 
-import "github.com/getchipman/bolt-api/app/common"
+import "github.com/frhdl/bolt-api/app/common"
 
 // RedisConfig cotains the configurations for cache.
 type RedisConfig struct {
@@ -17,7 +17,7 @@ func NewRedisConfig() *RedisConfig {
 	}
 
 	config := &RedisConfig{
-		Addr:     common.GetEnv("REDIS_HOST", "localhost:6379"),
+		Addr:     common.GetEnv("REDIS_HOST", "redis:6379"),
 		Password: password,
 	}
 

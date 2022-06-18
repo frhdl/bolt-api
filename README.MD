@@ -16,7 +16,7 @@
 **0. First Steps:**
 ```
 # Download Repository in your golang path
-git clone https://github.com/getchipman/bolt-api.git
+git clone https://github.com/frhdl/bolt-api.git
 # Access the folder
 cd bolt-api
 # Install Golang Dependencies

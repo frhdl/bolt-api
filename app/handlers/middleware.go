@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/getchipman/bolt-api/app/common"
-	"github.com/getchipman/bolt-api/app/context"
-	"github.com/getchipman/bolt-api/app/core/domains"
+	"github.com/frhdl/bolt-api/app/common"
+	"github.com/frhdl/bolt-api/app/context"
+	"github.com/frhdl/bolt-api/app/core/domains"
 	"github.com/gin-contrib/sessions"
 
 	"github.com/gin-gonic/gin"
@@ -66,7 +66,6 @@ func GlobalMiddleware() gin.HandlerFunc {
 		if len(tokenByAPI) > 0 {
 			claims := &domains.JWTClaims{}
 			token := strings.Split(tokenByAPI[0], " ")
-			ctx.Logger.Info("length: %v", len(token))
 			if len(token) != 2 {
 				c.Set(RequestContextKey, ctx)
 				ctx.ResultError(0, "Token Format Invalid - Correct Format: Bearer %token").JSON(c, nil)

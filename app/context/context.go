@@ -3,7 +3,7 @@ package context
 import (
 	"fmt"
 
-	"github.com/getchipman/bolt-api/app/common"
+	"github.com/frhdl/bolt-api/app/common"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )

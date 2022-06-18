@@ -1,6 +1,6 @@
 package db
 
-import "github.com/getchipman/bolt-api/app/common"
+import "github.com/frhdl/bolt-api/app/common"
 
 // PostgresConfig contains the configurations for database.
 type PostgresConfig struct {
@@ -15,8 +15,8 @@ type PostgresConfig struct {
 // NewPostgresConfig load the configuration for database.
 func NewPostgresConfig() *PostgresConfig {
 	config := &PostgresConfig{
-		Host:     common.GetEnv("DATABASE_HOST", "localhost"),
-		Port:     common.GetEnv("DATABASE_PORT", "5431"),
+		Host:     common.GetEnv("DATABASE_HOST", "postgres"),
+		Port:     common.GetEnv("DATABASE_PORT", "5432"),
 		User:     common.GetEnv("DATABASE_USER", "postgres"),
 		Password: common.GetEnv("DATABASE_PASSWORD", ""),
 		DbName:   common.GetEnv("DATABASE_DBNAME", "postgres"),

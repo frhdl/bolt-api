@@ -3,9 +3,9 @@ package tasksrepo
 import (
 	"fmt"
 
-	"github.com/getchipman/bolt-api/app/context"
-	"github.com/getchipman/bolt-api/app/core/domains"
-	"github.com/getchipman/bolt-api/app/core/ports"
+	"github.com/frhdl/bolt-api/app/context"
+	"github.com/frhdl/bolt-api/app/core/domains"
+	"github.com/frhdl/bolt-api/app/core/ports"
 )
 
 // TaskRepository contains objects for database communication.
