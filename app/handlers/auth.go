@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/getchipman/bolt-api/app/common"
-	"github.com/getchipman/bolt-api/app/context"
-	"github.com/getchipman/bolt-api/app/core/domains"
+	"github.com/frhdl/bolt-api/app/common"
+	"github.com/frhdl/bolt-api/app/context"
+	"github.com/frhdl/bolt-api/app/core/domains"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )

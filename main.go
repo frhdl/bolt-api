@@ -1,6 +1,6 @@
 package main
 
-import "github.com/getchipman/bolt-api/cmd"
+import "github.com/frhdl/bolt-api/cmd"
 
 func main() {
 	cmd.Execute()

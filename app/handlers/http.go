@@ -1,6 +1,6 @@
 package handlers
 
-import "github.com/getchipman/bolt-api/app/core/ports"
+import "github.com/frhdl/bolt-api/app/core/ports"
 
 // HTTPHandler represents a default handler.
 type HTTPHandler struct {

@@ -5,20 +5,21 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/getchipman/bolt-api/app/cache"
-	"github.com/getchipman/bolt-api/app/common"
-	"github.com/getchipman/bolt-api/app/context"
-	"github.com/getchipman/bolt-api/app/core/domains"
-	"github.com/getchipman/bolt-api/app/core/services/authsrv"
-	"github.com/getchipman/bolt-api/app/core/services/projectssrv"
-	"github.com/getchipman/bolt-api/app/core/services/taskssrv"
-	"github.com/getchipman/bolt-api/app/core/services/userssrv"
-	"github.com/getchipman/bolt-api/app/db"
-	"github.com/getchipman/bolt-api/app/handlers"
-	"github.com/getchipman/bolt-api/app/repositories/authrepo"
-	"github.com/getchipman/bolt-api/app/repositories/projectsrepo"
-	"github.com/getchipman/bolt-api/app/repositories/tasksrepo"
-	"github.com/getchipman/bolt-api/app/repositories/usersrepo"
+	"github.com/frhdl/bolt-api/app/cache"
+	"github.com/frhdl/bolt-api/app/common"
+	"github.com/frhdl/bolt-api/app/context"
+	"github.com/frhdl/bolt-api/app/core/domains"
+	"github.com/frhdl/bolt-api/app/core/services/authsrv"
+	"github.com/frhdl/bolt-api/app/core/services/projectssrv"
+	"github.com/frhdl/bolt-api/app/core/services/taskssrv"
+	"github.com/frhdl/bolt-api/app/core/services/userssrv"
+	"github.com/frhdl/bolt-api/app/db"
+	"github.com/frhdl/bolt-api/app/handlers"
+	"github.com/frhdl/bolt-api/app/repositories/authrepo"
+	"github.com/frhdl/bolt-api/app/repositories/projectsrepo"
+	"github.com/frhdl/bolt-api/app/repositories/tasksrepo"
+	"github.com/frhdl/bolt-api/app/repositories/usersrepo"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
@@ -83,6 +84,7 @@ var apiCMD = &cobra.Command{
 		hdl := handlers.New(authsrv, userssrv, projectssrv, taskssrv)
 
 		router := gin.New()
+		router.Use(cors.Default())
 
 		router.Use(sessions.Sessions(domains.DefaultSessionID, store))
 		router.Use(handlers.GlobalMiddleware())
@@ -103,7 +105,7 @@ var apiCMD = &cobra.Command{
 		router.PUT("api/v1/task", handlers.HandlerAPI(true, hdl.UpdateTask))
 		router.DELETE("api/v1/task/:taskID", handlers.HandlerAPI(true, hdl.DeleteTask))
 
-		port := common.GetEnv("PORT", "9000")
+		port := common.GetEnv("PORT", "3001")
 		s := &http.Server{
 			Addr:    fmt.Sprintf(":%v", port),
 			Handler: router,
