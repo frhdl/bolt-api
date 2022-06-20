@@ -11,7 +11,7 @@ type RedisConfig struct {
 
 // NewRegisConfig load the configuration for database.
 func NewRedisConfig() *RedisConfig {
-	password := common.GetEnv("REDIS_PASSWORD", "abcd1234")
+	password := common.GetEnv("REDIS_PASSWORD", "empty")
 	if password == "empty" {
 		password = ""
 	}
